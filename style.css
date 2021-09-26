@@ -6,7 +6,7 @@ svg {
   position: fixed;
 }
 
-circle {
+circle, #show1, #show2 {
   cursor: pointer;
 }
 
@@ -24,10 +24,6 @@ circle {
   z-index: 1;
   margin-top: 10%;
   padding-right: 10%;
-}
-
-#show1, #show2 {
-  cursor: pointer;
 }
 
 @font-face {

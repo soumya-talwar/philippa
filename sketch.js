@@ -1,23 +1,34 @@
 var json;
-var list = {};
+var philippa;
+
+var responses = {};
+var list = [];
 var groups = {};
+var dataset = [];
+
 var data = {
   "name": "root",
   "children": []
 };
 
-$(document).ready(() => {
+function setup() {
+  noLoop();
+  noCanvas();
   const id = "118EpNxeOf2Ly7ObSThWU76uCJbNlj7zfEs1Ng5sJFvI";
   fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json`)
     .then(response => response.text())
     .then(text => {
       json = JSON.parse(text.substr(47).slice(0, -2)).table.rows;
       parse();
-      draw();
+      visual();
+      build();
     });
   $("#show1").click(() => $(".hidden1").toggleClass("d-none"));
-  $("#show2").click(() => $(".hidden2").toggleClass("d-none"));
-});
+  $("#show2").click(() => {
+    $(".hidden2").toggleClass("d-none");
+    loop();
+  });
+}
 
 function parse() {
   for (let i = 0; i < json.length; i++) {
@@ -63,23 +74,22 @@ function parse() {
       user.case5 = 1;
     user.code = "" + user.case1 + user.case2 + user.case3 + user.case4 + user.case5;
 
-    if (!list[name])
-      list[name] = user;
+    if (!responses[name])
+      responses[name] = user;
     else {
       let count = 2;
       let name2 = name;
-      while (list[name2]) {
+      while (responses[name2]) {
         name2 = name + count++;
       }
-      list[name2] = user;
-      list[name2].name = name2;
+      responses[name2] = user;
+      responses[name2].name = name2;
     }
   }
 
-  let arr = Object.keys(list);
-
-  for (let i = 0; i < arr.length; i++) {
-    let user = list[arr[i]];
+  list = Object.keys(responses);
+  for (let i = 0; i < list.length; i++) {
+    let user = responses[list[i]];
     let code = user.code;
     if (!groups[code])
       groups[code] = [];
@@ -87,7 +97,7 @@ function parse() {
   }
 }
 
-function draw() {
+function visual() {
   let width = $(window).width();
   let height = $(window).height();
   $("#visualisation").attr({
@@ -191,7 +201,7 @@ function draw() {
   }
 
   $("circle").mouseover(function(e) {
-    let user = list[$(this).find("text").text()];
+    let user = responses[$(this).find("text").text()];
     let card = $(".card");
     let p = card.find("p");
     if (user.date)
@@ -206,4 +216,73 @@ function draw() {
   });
 
   $("circle").mouseout(() => $(".card").addClass("invisible"));
+}
+
+function build() {
+  philippa = new Network(6, 10, 2);
+  let responses2 = JSON.parse(JSON.stringify(responses));
+  for (let i = 0; i < list.length; i++) {
+    let name = list[i];
+    ["answer1", "answer2", "answer3", "answer4", "answer5", "code", "date"].forEach(k => delete responses2[name][k]);
+    for (let j = 1; j <= 5; j++) {
+      if (responses2[name]["case" + j] == 5)
+        responses2[name]["case" + j] = [1, 0];
+      else
+        responses2[name]["case" + j] = [0, 1];
+    }
+  }
+  for (let i = 0; i < list.length; i++) {
+    let name = list[i];
+    let set1 = {};
+    set1.inputs = [1, 1, 1, 1, 1, 1];
+    set1.output = responses2[name].case1;
+    dataset.push(set1);
+    let set2 = {};
+    set2.inputs = [1, 0, 0, 1, 1, 1];
+    set2.output = responses2[name].case2;
+    dataset.push(set2);
+    let set3 = {};
+    set3.inputs = [0, 0, 0, 1, 1, 1];
+    set3.output = responses2[name].case3;
+    dataset.push(set3);
+    let set4 = {};
+    set4.inputs = [1, 1, 0, 1, 1, 0];
+    set4.output = responses2[name].case4;
+    dataset.push(set4);
+    let set5 = {};
+    set5.inputs = [1, 1, 0, 1, 1, 1];
+    set5.output = responses2[name].case5;
+    dataset.push(set5);
+  }
+}
+
+function draw() {
+  for (let i = 0; i < dataset.length; i++) {
+    let set = dataset[i];
+    philippa.train(set.inputs, set.output);
+  }
+  let case1 = [1, 1, 1, 1, 1, 1];
+  let values1 = philippa.predict(case1);
+  $("#kill1-1").text(Math.floor(values1[0] * 100) + "%");
+  $("#kill5-1").text(Math.floor(values1[1] * 100) + "%");
+
+  let case2 = [1, 0, 0, 1, 1, 1];
+  let values2 = philippa.predict(case2);
+  $("#kill1-2").text(Math.floor(values2[0] * 100) + "%");
+  $("#kill5-2").text(Math.floor(values2[1] * 100) + "%");
+
+  let case3 = [0, 0, 0, 1, 1, 1];
+  let values3 = philippa.predict(case3);
+  $("#kill1-3").text(Math.floor(values3[0] * 100) + "%");
+  $("#kill5-3").text(Math.floor(values3[1] * 100) + "%");
+
+  let case4 = [1, 1, 0, 1, 1, 0];
+  let values4 = philippa.predict(case4);
+  $("#kill1-4").text(Math.floor(values4[0] * 100) + "%");
+  $("#kill5-4").text(Math.floor(values4[1] * 100) + "%");
+
+  let case5 = [1, 1, 0, 1, 1, 1];
+  let values5 = philippa.predict(case5);
+  $("#kill1-5").text(Math.floor(values5[0] * 100) + "%");
+  $("#kill5-5").text(Math.floor(values5[1] * 100) + "%");
 }
