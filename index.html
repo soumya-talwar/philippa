@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>philippa : a moral machine</title>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="sketch.js"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <svg id="visualisation"></svg>
+      <div class="card position-absolute invisible">
+        <div class="card-body p-4">
+          <p class="fw-bold text-decoration-underline"></p>
+          <p></p>
+          <p class="fw-bold text-decoration-underline"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 offset-7" id="landing">
+          <h1>Philippa</h1>
+          <p class="small">
+            A machine-learning model that's been trained on a dataset containing people's responses to five kinds of morbid moral dilemmas. <br><br>
+
+            &lt; <span class="border-bottom border-dark">what is this?</span><br><br>
+
+            On the left is an interactive visualisation of the data that was collected during the course of this project. Each branch refers to a different set of moral values and people with similar moral stances are grouped together.<br><br><br>
+
+            <span class="border-bottom border-dark" id="show1">show me the moral dilemmas</span> &gt;<br><br>
+          </p>
+          <ol class="small hidden1 d-none">
+            <li>
+              You are a trolley driver, and you notice 5 construction workers working towards the end of the track. Your brakes are faulty. However, you notice a side-track where there is only 1 worker. Which is the more ethical course of action?<br><br>
+              <ol>
+                <li>Steer the trolley & kill 1 worker</li>
+                <li>Do nothing & kill 5 workers<br><br><br></li>
+              </ol>
+            </li>
+            <li>
+              You are a transplant surgeon, you have 5 patients in critical need of an organ each. One needs a liver, two need a kidney, one a heart, another a lung. There are no donors. But there is a healthy patient in the next room. Which is the more ethical course of action?<br><br>
+              <ol>
+                <li>Use the healthy patient's organs to save 5 lives</li>
+                <li>Do nothing & let the 5 die<br><br><br></li>
+              </ol>
+            </li>
+            <li>
+              You are a judge, and 5 people are threatening to kill themselves if the culprit of a certain crime is not found. The real culprit remains unknown. You can prevent the bloodshed by framing an innocent individual. Which is the more ethical course of action?<br><br>
+              <ol>
+                <li>Execute the innocent person & save 5 lives</li>
+                <li>Do nothing & let the 5 die<br><br><br></li>
+              </ol>
+            </li>
+            <li>
+              You are a doctor, and in order to save a patient, you need to give him a massive dose of a drug that's in short supply. Later on, 5 other patients arrive, each of whom could be saved with 1/5th of that dose. Which is the more ethical option?<br><br>
+              <ol>
+                <li>Give the dose to the 5 later patients</li>
+                <li>Give the dose to the initial patient<br><br><br></li>
+              </ol>
+            </li>
+            <li>
+              You are a doctor, and there are 5 patients whose lives could be saved by the manufacture of a certain gas. But this leads to the release of lethal fumes into the room of another patient who, for some reason, you cannot move elsewhere. Which is the more ethical option?<br><br>
+              <ol>
+                <li>Manufacture the gas & let the 1 patient die</li>
+                <li>Do nothing & let the 5 patients die<br><br><br></li>
+              </ol>
+            </li>
+          </ol>
+          <p class="small hidden1 d-none">
+            <span class="border-bottom border-dark" id="show2">see philippa's answers</span> &gt;<br><br>
+          </p>
+          <p class="small hidden2 d-none">
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

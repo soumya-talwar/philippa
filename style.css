@@ -1,0 +1,36 @@
+* {
+  font-family: mono, monospace;
+}
+
+svg {
+  position: fixed;
+}
+
+circle {
+  cursor: pointer;
+}
+
+.card {
+  width: auto;
+  font-size: 0.7rem;
+  z-index: 2;
+}
+
+.card p {
+  line-height: 1.2rem;
+}
+
+#landing {
+  z-index: 1;
+  margin-top: 10%;
+  padding-right: 10%;
+}
+
+#show1, #show2 {
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: mono;
+  src: url(./fonts/andale.ttf);
+}
