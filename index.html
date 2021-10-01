@@ -31,98 +31,148 @@
           <p class="fw-bold text-decoration-underline"></p>
         </div>
       </div>
+      <div class="position-fixed top-0 end-0 d-flex flex-column justify-content-center align-items-end px-5 gap-2" id="sidebar">
+        <div class="d-flex flex-row align-items-start gap-3">
+          <span class="label invisible">philippa: intro</span>
+          <a class="heading" href="#landing">
+            <svg height="20" width="20">
+              <circle cx="10" cy="10" r="5" fill="#96BAFF" />
+            </svg>
+          </a>
+        </div>
+        <div class="d-flex flex-row align-items-start gap-3">
+          <span class="label invisible">the moral dilemmas</span>
+          <a class="heading" href="#hidden1">
+            <svg height="20" width="20">
+              <circle cx="10" cy="10" r="5" fill="#DEADFF" />
+            </svg>
+          </a>
+        </div>
+        <div class="d-flex flex-row align-items-start gap-3">
+          <span class="label invisible">philippa's answers</span>
+          <a class="heading" href="#hidden2">
+            <svg height="20" width="20">
+              <circle cx="10" cy="10" r="5" fill="#B4B6FF" />
+            </svg>
+          </a>
+        </div>
+        <div class="d-flex flex-row align-items-start gap-3">
+          <span class="label invisible">philippa's moral framework</span>
+          <a class="heading" href="#hidden3">
+            <svg height="20" width="20">
+              <circle cx="10" cy="10" r="5" fill="#89E1E6" />
+            </svg>
+          </a>
+        </div>
+        <div class="d-flex flex-row align-items-start gap-3">
+          <span class="label invisible">further reading</span>
+          <a class="heading" href="#hidden4">
+            <svg height="20" width="20">
+              <circle cx="10" cy="10" r="5" fill="#FFADAD" />
+            </svg>
+          </a>
+        </div>
+      </div>
       <div class="row">
-        <div class="col-5 offset-7" id="landing">
+        <div class="col-4 offset-7 d-flex flex-column gap-4 py-5" id="landing">
           <h1>Philippa</h1>
-          <p class="small">
-            A machine-learning model that's been trained on a dataset containing people's responses to five kinds of morbid moral dilemmas. <br><br>
-
-            &lt; <span class="border-bottom border-dark">what is this?</span><br><br>
-
-            On the left is an interactive visualisation of the data that was collected during the course of this project. Each branch refers to a different set of moral values and people with similar moral stances are grouped together.<br><br><br>
-
-            <span class="border-bottom border-dark" id="show1">show me the moral dilemmas</span> &gt;<br><br>
+          <p>
+            A machine-learning model that's been trained on a dataset containing people's responses to five kinds of moral dilemmas.</p>
+          <p>&lt; <span class="border-bottom border-dark">what is this?</span></p>
+          <p>
+            On the left is an interactive visualisation of the data that was collected during the course of this project. Each branch refers to a different set of moral values and people with similar moral stances are grouped together.
           </p>
-          <ol class="small hidden1 d-none">
-            <li>
-              You are a trolley driver, and you notice 5 construction workers working towards the end of the track. Your brakes are faulty. However, you notice a side-track where there is only 1 worker. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Steer the trolley & kill 1 worker</li>
-                <li>Do nothing & kill 5 workers<br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a transplant surgeon, you have 5 patients in critical need of an organ each. One needs a liver, two need a kidney, one a heart, another a lung. There are no donors. But there is a healthy patient in the next room. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Use the healthy patient's organs to save 5 lives</li>
-                <li>Do nothing & let the 5 die<br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a judge, and 5 people are threatening to kill themselves if the culprit of a certain crime is not found. The real culprit remains unknown. You can prevent the bloodshed by framing an innocent individual. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Execute the innocent person & save 5 lives</li>
-                <li>Do nothing & let the 5 die<br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a doctor, and in order to save a patient, you need to give him a massive dose of a drug that's in short supply. Later on, 5 other patients arrive, each of whom could be saved with 1/5th of that dose. Which is the more ethical option?<br><br>
-              <ol>
-                <li>Give the dose to the 5 later patients</li>
-                <li>Give the dose to the initial patient<br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a doctor, and there are 5 patients whose lives could be saved by the manufacture of a certain gas. But this leads to the release of lethal fumes into the room of another patient who, for some reason, you cannot move elsewhere. Which is the more ethical option?<br><br>
-              <ol>
-                <li>Manufacture the gas & let the 1 patient die</li>
-                <li>Do nothing & let the 5 patients die<br><br><br></li>
-              </ol>
-            </li>
-          </ol>
-          <p class="small hidden1 d-none">
-            <span class="border-bottom border-dark" id="show2">see philippa's answers</span> &gt;<br><br>
-          </p>
-          <ol class="small hidden2 d-none">
-            <li>
-              You are a trolley driver, and you notice 5 construction workers working towards the end of the track. Your brakes are faulty. However, you notice a side-track where there is only 1 worker. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Kill 1: <span id="kill1-1"></span></li>
-                <li>Kill 5: <span id="kill5-1"></span><br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a transplant surgeon, you have 5 patients in critical need of an organ each. One needs a liver, two need a kidney, one a heart, another a lung. There are no donors. But there is a healthy patient in the next room. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Kill 1: <span id="kill1-2"></span></li>
-                <li>Kill 5: <span id="kill5-2"></span><br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a judge, and 5 people are threatening to kill themselves if the culprit of a certain crime is not found. The real culprit remains unknown. You can prevent the bloodshed by framing an innocent individual. Which is the more ethical course of action?<br><br>
-              <ol>
-                <li>Kill 1: <span id="kill1-3"></span></li>
-                <li>Kill 5: <span id="kill5-3"></span><br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a doctor, and in order to save a patient, you need to give him a massive dose of a drug that's in short supply. Later on, 5 other patients arrive, each of whom could be saved with 1/5th of that dose. Which is the more ethical option?<br><br>
-              <ol>
-                <li>Kill 1: <span id="kill1-4"></span></li>
-                <li>Kill 5: <span id="kill5-4"></span><br><br><br></li>
-              </ol>
-            </li>
-            <li>
-              You are a doctor, and there are 5 patients whose lives could be saved by the manufacture of a certain gas. But this leads to the release of lethal fumes into the room of another patient who, for some reason, you cannot move elsewhere. Which is the more ethical option?<br><br>
-              <ol>
-                <li>Kill 1: <span id="kill1-5"></span></li>
-                <li>Kill 5: <span id="kill5-5"></span><br><br><br></li>
-              </ol>
-            </li>
-          </ol>
-          <p class="small hidden2 d-none">
-            <span class="border-bottom border-dark" id="show3">read about philippa's moral framework</span> &gt;<br><br>
-          </p>
+          <p><a class="border-bottom border-dark show">show me the moral dilemmas</a> &gt;</p>
+          <div class="d-none" id="hidden1">
+            <ol>
+              <li>
+                You are a trolley driver, and you notice 5 construction workers working towards the end of the track. Your brakes are faulty. However, you notice a side-track where there is only 1 worker. Which is the more ethical course of action?
+                <ol>
+                  <li>Steer the trolley & kill 1 worker</li>
+                  <li>Do nothing & kill 5 workers</li>
+                </ol>
+              </li>
+              <li>
+                You are a transplant surgeon, and you have 5 patients in critical need of an organ each. One needs a liver, two need a kidney, one a heart, another a lung. There are no donors. But there is a healthy patient in the next room. Which is the more ethical course of action?
+                <ol>
+                  <li>Use the healthy patient's organs to save 5 lives</li>
+                  <li>Do nothing & let the 5 die</li>
+                </ol>
+              </li>
+              <li>
+                You are a judge, and 5 people are threatening to kill themselves if the culprit of a certain crime is not found. The real culprit remains unknown. You can prevent the bloodshed by framing an innocent individual. Which is the more ethical course of action?
+                <ol>
+                  <li>Execute the innocent person & save 5 lives</li>
+                  <li>Do nothing & let the 5 die</li>
+                </ol>
+              </li>
+              <li>
+                You are a doctor, and in order to save a patient, you need to give him a massive dose of a drug that's in short supply. But right then, 5 other patients arrive, each of whom could be saved with 1/5th of that dose. Which is the more ethical option?
+                <ol>
+                  <li>Give the dose to the 5 later patients</li>
+                  <li>Give the dose to the initial patient</li>
+                </ol>
+              </li>
+              <li>
+                You are a doctor, and there are 5 patients whose lives could be saved by the manufacture of a certain gas. But this leads to the release of lethal fumes into the room of another patient who, for some reason, you cannot move elsewhere. Which is the more ethical option?
+                <ol>
+                  <li>Manufacture the gas & let the 1 patient die</li>
+                  <li>Do nothing & let the 5 patients die</li>
+                </ol>
+              </li>
+            </ol>
+            <p class="pt-4">
+              <a class="border-bottom border-dark show">see philippa's answers</a> &gt;
+            </p>
+          </div>
+          <div class="d-none" id="hidden2">
+            <ol>
+              <li>
+                You are a trolley driver, and you notice 5 construction workers working towards the end of the track. Your brakes are faulty. However, you notice a side-track where there is only 1 worker. Which is the more ethical course of action?
+                <ol>
+                  <li>Kill 1: <span id="kill1-1"></span></li>
+                  <li>Kill 5: <span id="kill5-1"></span></li>
+                </ol>
+              </li>
+              <li>
+                You are a transplant surgeon, you have 5 patients in critical need of an organ each. One needs a liver, two need a kidney, one a heart, another a lung. There are no donors. But there is a healthy patient in the next room. Which is the more ethical course of action?
+                <ol>
+                  <li>Kill 1: <span id="kill1-2"></span></li>
+                  <li>Kill 5: <span id="kill5-2"></span></li>
+                </ol>
+              </li>
+              <li>
+                You are a judge, and 5 people are threatening to kill themselves if the culprit of a certain crime is not found. The real culprit remains unknown. You can prevent the bloodshed by framing an innocent individual. Which is the more ethical course of action?
+                <ol>
+                  <li>Kill 1: <span id="kill1-3"></span></li>
+                  <li>Kill 5: <span id="kill5-3"></span></li>
+                </ol>
+              </li>
+              <li>
+                You are a doctor, and in order to save a patient, you need to give him a massive dose of a drug that's in short supply. Later on, 5 other patients arrive, each of whom could be saved with 1/5th of that dose. Which is the more ethical option?
+                <ol>
+                  <li>Kill 1: <span id="kill1-4"></span></li>
+                  <li>Kill 5: <span id="kill5-4"></span></li>
+                </ol>
+              </li>
+              <li>
+                You are a doctor, and there are 5 patients whose lives could be saved by the manufacture of a certain gas. But this leads to the release of lethal fumes into the room of another patient who, for some reason, you cannot move elsewhere. Which is the more ethical option?
+                <ol>
+                  <li>Kill 1: <span id="kill1-5"></span></li>
+                  <li>Kill 5: <span id="kill5-5"></span></li>
+                </ol>
+              </li>
+            </ol>
+            <p class="pt-4">
+              <a class="border-bottom border-dark show">read about philippa's moral framework</a> &gt;
+            </p>
+          </div>
+          <div class="d-none" id="hidden3">
+            <p>Philippa has been trained on people's responses to multiple moral dilemmas that pit 5 lives against 1. But despite bearing the same consequences, our moral intuition will tell us that the five scenarios are inherently different from one another. That is because there are more moral variables at play than just the number of lives.<br><br>
+              A machine understands arithmatic comparisions, 5 is greater than 1, yet Philippa works on a framework that accounts for other moral variables: desire, intent and duty.<br><br>
+              For example, it is one thing to steer a trolley towards someone foreseeing that you will kill them, and something entirely different to aim at their death as part of your plan. There’s no certainty that the worker will die, it is possible that they may find a foothold in the tunnel to cling onto till the train passes. The driver does not jump out of the trolley to kill the worker. However, as a surgeon, you need the death of the healthy indivual for your purposes. The person’s death is necessary for you to save the five patients. This is the distinction between direct and oblique intent.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ svg {
   position: fixed;
 }
 
-circle, #show1, #show2 {
+circle {
   cursor: pointer;
 }
 
@@ -16,14 +16,37 @@ circle, #show1, #show2 {
   z-index: 2;
 }
 
-.card p {
+.card p, .label {
+  font-size: 0.7rem;
   line-height: 1.2rem;
 }
 
 #landing {
   z-index: 1;
-  margin-top: 10%;
-  padding-right: 10%;
+  margin-top: 5%;
+}
+
+#sidebar {
+  height: 100vh;
+  z-index: 1;
+}
+
+p, a, ol, li {
+  font-size: 0.9rem;
+}
+
+ol li {
+  padding-top: 1.5rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+}
+
+a:hover {
+  color: inherit;
 }
 
 @font-face {

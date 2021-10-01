@@ -23,10 +23,21 @@ function setup() {
       visual();
       build();
     });
-  $("#show1").click(() => $(".hidden1").toggleClass("d-none"));
-  $("#show2").click(() => {
-    $(".hidden2").toggleClass("d-none");
+  let links = $(".show");
+  links.eq(0).click(() => $("#hidden1").toggleClass("d-none"));
+  links.eq(1).click(() => {
+    $("#hidden2").toggleClass("d-none");
     loop();
+  });
+  links.eq(2).click(() => $("#hidden3").toggleClass("d-none"));
+  $(".heading").hover(function() {
+    $(this).siblings("span").toggleClass("invisible");
+  });
+  $(".heading").mouseover(function() {
+    $(this).find("circle").attr("r", "7");
+  });
+  $(".heading").mouseout(function() {
+    $(this).find("circle").attr("r", "5");
   });
 }
 
@@ -107,15 +118,11 @@ function visual() {
 
   let arr = Object.keys(groups);
   let colors = [
-    "#FFD6D6",
-    "#DFBBD4",
-    "#BE93C5",
-    "#AEA0C7",
-    "#9DADC9",
-    "#8CBACB",
-    "#7BC6CC",
-    "#91C3DA",
-    "#A7BFE8"
+    "#96BAFF",
+    "#DEADFF",
+    "#B4B6FF",
+    "#89E1E6",
+    "#FFADAD"
   ];
 
   for (let i = 0; i < arr.length; i++) {
@@ -202,17 +209,18 @@ function visual() {
 
   $("circle").mouseover(function(e) {
     let user = responses[$(this).find("text").text()];
-    let card = $(".card");
-    let p = card.find("p");
-    if (user.date)
+    if (user) {
+      let card = $(".card");
+      let p = card.find("p");
       p.eq(0).text(user.date[1] + " " + user.date[0] + " " + user.date[2]);
-    p.eq(1).html("1. " + user.answer1 + "<br>2. " + user.answer2 + "<br>3. " + user.answer3 + "<br>4. " + user.answer4 + "<br>5. " + user.answer5);
-    p.eq(2).text(user.name);
-    card.css({
-      left: e.pageX + 10,
-      top: e.pageY - 50
-    });
-    card.removeClass("invisible");
+      p.eq(1).html("1. " + user.answer1 + "<br>2. " + user.answer2 + "<br>3. " + user.answer3 + "<br>4. " + user.answer4 + "<br>5. " + user.answer5);
+      p.eq(2).text(user.name);
+      card.css({
+        left: e.pageX + 10,
+        top: e.pageY - 50
+      });
+      card.removeClass("invisible");
+    }
   });
 
   $("circle").mouseout(() => $(".card").addClass("invisible"));
