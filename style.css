@@ -2,10 +2,6 @@
   font-family: mono, monospace;
 }
 
-svg {
-  position: fixed;
-}
-
 circle {
   cursor: pointer;
 }
@@ -14,6 +10,7 @@ circle {
   width: auto;
   font-size: 0.7rem;
   z-index: 2;
+  box-shadow: 5px 5px 20px #EEE !important;
 }
 
 .card p, .label {
@@ -26,27 +23,14 @@ circle {
   margin-top: 5%;
 }
 
-#sidebar {
-  height: 100vh;
-  z-index: 1;
-}
-
-p, a, ol, li {
+p, a {
   font-size: 0.9rem;
 }
 
-ol li {
-  padding-top: 1.5rem;
-}
-
-a {
+a, a:hover {
   color: inherit;
   text-decoration: inherit;
   cursor: pointer;
-}
-
-a:hover {
-  color: inherit;
 }
 
 @font-face {

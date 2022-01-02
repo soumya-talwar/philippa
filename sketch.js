@@ -13,7 +13,6 @@ var data = {
 
 function setup() {
   noLoop();
-  noCanvas();
   const id = "118EpNxeOf2Ly7ObSThWU76uCJbNlj7zfEs1Ng5sJFvI";
   fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json`)
     .then(response => response.text())
@@ -23,22 +22,6 @@ function setup() {
       visual();
       build();
     });
-  let links = $(".show");
-  links.eq(0).click(() => $("#hidden1").toggleClass("d-none"));
-  links.eq(1).click(() => {
-    $("#hidden2").toggleClass("d-none");
-    loop();
-  });
-  links.eq(2).click(() => $("#hidden3").toggleClass("d-none"));
-  $(".heading").hover(function() {
-    $(this).siblings("span").toggleClass("invisible");
-  });
-  $(".heading").mouseover(function() {
-    $(this).find("circle").attr("r", "7");
-  });
-  $(".heading").mouseout(function() {
-    $(this).find("circle").attr("r", "5");
-  });
 }
 
 function parse() {
