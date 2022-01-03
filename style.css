@@ -41,6 +41,10 @@ small {
   font-size: 0.75rem;
 }
 
+a, a:hover {
+  color: inherit;
+}
+
 .next:hover, .prev:hover {
   text-decoration: underline;
   text-underline-offset: 0.25rem;
