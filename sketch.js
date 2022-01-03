@@ -22,6 +22,35 @@ function setup() {
       visual();
       build();
     });
+  $(".main").eq(0).animate({
+    opacity: "1"
+  }, 1000);
+  $(".next").each((index, link) => {
+    $(link).click(() => {
+      let page = $(".main");
+      page.eq(index).addClass("d-none");
+      page.eq(index).css({
+        opacity: "0"
+      });
+      page.eq(index + 1).removeClass("d-none");
+      page.eq(index + 1).animate({
+        opacity: "1"
+      }, 1000);
+    });
+  });
+  $(".prev").each((index, link) => {
+    $(link).click(() => {
+      let page = $(".main");
+      page.eq(index + 1).addClass("d-none");
+      page.eq(index + 1).css({
+        opacity: "0"
+      });
+      page.eq(index).removeClass("d-none");
+      page.eq(index).animate({
+        opacity: "1"
+      }, 1000);
+    });
+  });
 }
 
 function parse() {
@@ -105,7 +134,7 @@ function visual() {
     "#DEADFF",
     "#B4B6FF",
     "#89E1E6",
-    "#FFADAD"
+    "#BDD0DB"
   ];
 
   for (let i = 0; i < arr.length; i++) {
@@ -128,8 +157,8 @@ function visual() {
   const nodes = root.descendants();
 
   const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.name).distance(30).strength(1))
-    .force("charge", d3.forceManyBody().strength(-70))
+    .force("link", d3.forceLink(links).id(d => d.name).distance(10).strength(1))
+    .force("charge", d3.forceManyBody().strength(-90))
     .force("center", d3.forceCenter(width / 4, height / 2));
 
   const link = svg.append("g")
@@ -146,7 +175,7 @@ function visual() {
     .append("circle")
     .attr("fill", d => d.children ? "#FFF" : d.data.color)
     .attr("stroke", d => d.children ? d.data.color : "transparent")
-    .attr("r", d => d.data.name == "root" ? 0 : 3)
+    .attr("r", d => d.data.name == "root" ? 0 : 3.7)
     .call(
       d3
       .drag()

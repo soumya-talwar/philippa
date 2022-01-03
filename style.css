@@ -1,5 +1,7 @@
 * {
   font-family: mono, monospace;
+  font-size: 0.9rem;
+  line-height: 2rem;
 }
 
 circle {
@@ -8,28 +10,40 @@ circle {
 
 .card {
   width: auto;
-  font-size: 0.7rem;
   z-index: 2;
-  box-shadow: 5px 5px 20px #EEE !important;
+  border-color: #F4F4F4;
+  box-shadow: 0 0 15px 5px #F4F4F4;
 }
 
 .card p, .label {
-  font-size: 0.7rem;
-  line-height: 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
 }
 
 #landing {
   z-index: 1;
-  margin-top: 5%;
 }
 
-p, a {
-  font-size: 0.9rem;
+.main {
+  opacity: 0;
+  padding-top: 25%;
 }
 
-a, a:hover {
-  color: inherit;
-  text-decoration: inherit;
+ol>li {
+  padding-bottom: 2rem;
+}
+
+ul>li {
+  padding-top: 1rem;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+.next:hover, .prev:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
   cursor: pointer;
 }
 
