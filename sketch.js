@@ -11,8 +11,9 @@ var data = {
   "children": []
 };
 
+var run = false;
+
 function setup() {
-  noLoop();
   const id = "118EpNxeOf2Ly7ObSThWU76uCJbNlj7zfEs1Ng5sJFvI";
   fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json`)
     .then(response => response.text())
@@ -23,18 +24,19 @@ function setup() {
       build();
     });
   $(".main").eq(0).animate({
-    opacity: "1"
+    opacity: 1
   }, 1000);
   $(".next").each((index, link) => {
     $(link).click(() => {
       let page = $(".main");
       page.eq(index).addClass("d-none");
       page.eq(index).css({
-        opacity: "0"
+        opacity: 0
       });
       page.eq(index + 1).removeClass("d-none");
+      window.scrollTo(0, 0);
       page.eq(index + 1).animate({
-        opacity: "1"
+        opacity: 1
       }, 1000);
     });
   });
@@ -43,60 +45,43 @@ function setup() {
       let page = $(".main");
       page.eq(index + 1).addClass("d-none");
       page.eq(index + 1).css({
-        opacity: "0"
+        opacity: 0
       });
       page.eq(index).removeClass("d-none");
+      window.scrollTo(0, 0);
       page.eq(index).animate({
-        opacity: "1"
+        opacity: 1
       }, 1000);
     });
   });
 }
 
 function parse() {
-  for (let i = 0; i < json.length; i++) {
-    let name = json[i].c[1].v.trim().toLowerCase();
+  for (let row of json) {
+    let name = row.c[1].v.trim().toLowerCase();
     let space = name.indexOf(' ');
     if (space != -1)
       name = name.substring(0, space);
     name = name.charAt(0).toUpperCase() + name.slice(1);
-    let time = json[i].c[0].f;
-    space = time.indexOf(' ');
-    time = time.substring(0, space);
+    let time = row.c[0].f;
+    time = time.substring(0, time.indexOf(' '));
     let date = time.split("/");
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     date[0] = months[Number(date[0]) - 1];
-
     let user = {};
     user.date = date;
     user.name = name;
-    user.answer1 = json[i].c[2].v;
-    if (user.answer1 == "Steer the trolley & kill 1 worker")
-      user.case1 = 5;
-    else
-      user.case1 = 1;
-    user.answer2 = json[i].c[3].v;
-    if (user.answer2 == "Use the healthy patient's organs to save 5 lives")
-      user.case2 = 5;
-    else
-      user.case2 = 1;
-    user.answer3 = json[i].c[4].v;
-    if (user.answer3 == "Execute the innocent person & save 5 lives")
-      user.case3 = 5;
-    else
-      user.case3 = 1;
-    user.answer4 = json[i].c[5].v;
-    if (user.answer4 == "Give the dose to the initial patient")
-      user.case4 = 1;
-    else
-      user.case4 = 5;
-    user.answer5 = json[i].c[6].v;
-    if (user.answer5 == "Manufacture the gas & let the 1 patient die")
-      user.case5 = 5;
-    else
-      user.case5 = 1;
+    user.answer1 = row.c[2].v;
+    user.case1 = (/steer/i).test(user.answer1) ? 5 : 1;
+    user.answer2 = row.c[3].v;
+    user.case2 = (/organs/i).test(user.answer2) ? 5 : 1;
+    user.answer3 = row.c[4].v;
+    user.case3 = (/execute/i).test(user.answer3) ? 5 : 1;
+    user.answer4 = row.c[5].v;
+    user.case4 = (/initial/i).test(user.answer4) ? 1 : 5;
+    user.answer5 = row.c[6].v;
+    user.case5 = (/manufacture/i).test(user.answer5) ? 5 : 1;
     user.code = "" + user.case1 + user.case2 + user.case3 + user.case4 + user.case5;
-
     if (!responses[name])
       responses[name] = user;
     else {
@@ -109,10 +94,9 @@ function parse() {
       responses[name2].name = name2;
     }
   }
-
   list = Object.keys(responses);
-  for (let i = 0; i < list.length; i++) {
-    let user = responses[list[i]];
+  for (let name of list) {
+    let user = responses[name];
     let code = user.code;
     if (!groups[code])
       groups[code] = [];
@@ -127,7 +111,6 @@ function visual() {
     "width": width,
     "height": height
   });
-
   let arr = Object.keys(groups);
   let colors = [
     "#96BAFF",
@@ -136,7 +119,6 @@ function visual() {
     "#89E1E6",
     "#BDD0DB"
   ];
-
   for (let i = 0; i < arr.length; i++) {
     let node = {};
     node.name = arr[i];
@@ -162,7 +144,7 @@ function visual() {
     .force("center", d3.forceCenter(width / 4, height / 2));
 
   const link = svg.append("g")
-    .attr("stroke", "#EEE")
+    .attr("stroke", "#E7E7E7")
     .selectAll("line")
     .data(links)
     .enter()
@@ -219,7 +201,7 @@ function visual() {
     d.fy = null;
   }
 
-  $("circle").mouseover(function(e) {
+  $("circle").hover(function(e) {
     let user = responses[$(this).find("text").text()];
     if (user) {
       let card = $(".card");
@@ -228,31 +210,21 @@ function visual() {
       p.eq(1).html("1. " + user.answer1 + "<br>2. " + user.answer2 + "<br>3. " + user.answer3 + "<br>4. " + user.answer4 + "<br>5. " + user.answer5);
       p.eq(2).text(user.name);
       card.css({
-        left: e.pageX + 10,
-        top: e.pageY - 50
+        left: e.pageX + 20,
+        top: constrain(e.pageY - 50, 0, height - card.height())
       });
       card.removeClass("invisible");
     }
-  });
-
-  $("circle").mouseout(() => $(".card").addClass("invisible"));
+  }, () => $(".card").addClass("invisible"));
 }
 
 function build() {
   philippa = new Network(6, 10, 2);
   let responses2 = JSON.parse(JSON.stringify(responses));
-  for (let i = 0; i < list.length; i++) {
-    let name = list[i];
-    ["answer1", "answer2", "answer3", "answer4", "answer5", "code", "date"].forEach(k => delete responses2[name][k]);
-    for (let j = 1; j <= 5; j++) {
-      if (responses2[name]["case" + j] == 5)
-        responses2[name]["case" + j] = [1, 0];
-      else
-        responses2[name]["case" + j] = [0, 1];
-    }
+  for (let name of list) {
+    ["case1", "case2", "case3", "case4", "case5"].forEach(prop => responses2[name][prop] = responses2[name][prop] == 5 ? [1, 0] : [0, 1]);
   }
-  for (let i = 0; i < list.length; i++) {
-    let name = list[i];
+  for (let name of list) {
     let set1 = {};
     set1.inputs = [1, 1, 1, 1, 1, 1];
     set1.output = responses2[name].case1;
@@ -274,35 +246,37 @@ function build() {
     set5.output = responses2[name].case5;
     dataset.push(set5);
   }
+  run = true;
 }
 
 function draw() {
-  for (let i = 0; i < dataset.length; i++) {
-    let set = dataset[i];
-    philippa.train(set.inputs, set.output);
+  if (run) {
+    for (let set of dataset) {
+      philippa.train(set.inputs, set.output);
+    }
+    let case1 = [1, 1, 1, 1, 1, 1];
+    let values1 = philippa.predict(case1);
+    $("#kill1-1").text(Math.floor(values1[0] * 100) + "%");
+    $("#kill5-1").text(Math.floor(values1[1] * 100) + "%");
+
+    let case2 = [1, 0, 0, 1, 1, 1];
+    let values2 = philippa.predict(case2);
+    $("#kill1-2").text(Math.floor(values2[0] * 100) + "%");
+    $("#kill5-2").text(Math.floor(values2[1] * 100) + "%");
+
+    let case3 = [0, 0, 0, 1, 1, 1];
+    let values3 = philippa.predict(case3);
+    $("#kill1-3").text(Math.floor(values3[0] * 100) + "%");
+    $("#kill5-3").text(Math.floor(values3[1] * 100) + "%");
+
+    let case4 = [1, 1, 0, 1, 1, 0];
+    let values4 = philippa.predict(case4);
+    $("#kill1-4").text(Math.floor(values4[0] * 100) + "%");
+    $("#kill5-4").text(Math.floor(values4[1] * 100) + "%");
+
+    let case5 = [1, 1, 0, 1, 1, 1];
+    let values5 = philippa.predict(case5);
+    $("#kill1-5").text(Math.floor(values5[0] * 100) + "%");
+    $("#kill5-5").text(Math.floor(values5[1] * 100) + "%");
   }
-  let case1 = [1, 1, 1, 1, 1, 1];
-  let values1 = philippa.predict(case1);
-  $("#kill1-1").text(Math.floor(values1[0] * 100) + "%");
-  $("#kill5-1").text(Math.floor(values1[1] * 100) + "%");
-
-  let case2 = [1, 0, 0, 1, 1, 1];
-  let values2 = philippa.predict(case2);
-  $("#kill1-2").text(Math.floor(values2[0] * 100) + "%");
-  $("#kill5-2").text(Math.floor(values2[1] * 100) + "%");
-
-  let case3 = [0, 0, 0, 1, 1, 1];
-  let values3 = philippa.predict(case3);
-  $("#kill1-3").text(Math.floor(values3[0] * 100) + "%");
-  $("#kill5-3").text(Math.floor(values3[1] * 100) + "%");
-
-  let case4 = [1, 1, 0, 1, 1, 0];
-  let values4 = philippa.predict(case4);
-  $("#kill1-4").text(Math.floor(values4[0] * 100) + "%");
-  $("#kill5-4").text(Math.floor(values4[1] * 100) + "%");
-
-  let case5 = [1, 1, 0, 1, 1, 1];
-  let values5 = philippa.predict(case5);
-  $("#kill1-5").text(Math.floor(values5[0] * 100) + "%");
-  $("#kill5-5").text(Math.floor(values5[1] * 100) + "%");
 }
