@@ -33,6 +33,8 @@ function setup() {
       page.eq(index).css({
         opacity: 0
       });
+      if (index == 4)
+        index = -1;
       page.eq(index + 1).removeClass("d-none");
       window.scrollTo(0, 0);
       page.eq(index + 1).animate({
@@ -211,7 +213,7 @@ function visual() {
       p.eq(2).text(user.name);
       card.css({
         left: e.pageX + 20,
-        top: constrain(e.pageY - 50, 0, height - card.height())
+        top: e.pageY - 50
       });
       card.removeClass("invisible");
     }
