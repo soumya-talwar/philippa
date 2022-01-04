@@ -45,9 +45,14 @@ a, a:hover {
   color: inherit;
 }
 
-.next:hover, .prev:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
+.circle {
+  z-index: -1;
+  border-radius: 28px;
+  width: 16px;
+  height: 16px;
+}
+
+.prev:hover, .next:hover {
   cursor: pointer;
 }
 

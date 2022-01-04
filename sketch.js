@@ -10,6 +10,13 @@ var data = {
   "name": "root",
   "children": []
 };
+let colors = [
+  "#96BAFF",
+  "#DEADFF",
+  "#89E1E6",
+  "#B4B6FF",
+  "#BDD0DB"
+];
 
 var run = false;
 
@@ -26,7 +33,20 @@ function setup() {
   $(".main").eq(0).animate({
     opacity: 1
   }, 1000);
+  $(".circle").eq(0).css({
+    left: $(".next").eq(0).offset().left - 30,
+    background: colors[1]
+  });
   $(".next").each((index, link) => {
+    $(link).hover(() => {
+      $(".circle").eq(index).animate({
+        width: $(link).width() + 40
+      }, 300);
+    }, () => {
+      $(".circle").eq(index).animate({
+        width: 16
+      }, 300);
+    });
     $(link).click(() => {
       let page = $(".main");
       page.eq(index).addClass("d-none");
@@ -37,6 +57,10 @@ function setup() {
         index = -1;
       page.eq(index + 1).removeClass("d-none");
       window.scrollTo(0, 0);
+      $(".circle").eq(index + 1).css({
+        left: $(".next").eq(index + 1).offset().left - 30,
+        background: colors[index + 2] || colors[0]
+      });
       page.eq(index + 1).animate({
         opacity: 1
       }, 1000);
@@ -51,6 +75,10 @@ function setup() {
       });
       page.eq(index).removeClass("d-none");
       window.scrollTo(0, 0);
+      $(".circle").eq(index).css({
+        left: $(".next").eq(index).offset().left - 30,
+        background: colors[index + 1]
+      });
       page.eq(index).animate({
         opacity: 1
       }, 1000);
@@ -114,13 +142,6 @@ function visual() {
     "height": height
   });
   let arr = Object.keys(groups);
-  let colors = [
-    "#96BAFF",
-    "#DEADFF",
-    "#B4B6FF",
-    "#89E1E6",
-    "#BDD0DB"
-  ];
   for (let i = 0; i < arr.length; i++) {
     let node = {};
     node.name = arr[i];
