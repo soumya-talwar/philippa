@@ -10,7 +10,7 @@ var data = {
   "name": "root",
   "children": []
 };
-let colors = [
+var colors = [
   "#96BAFF",
   "#DEADFF",
   "#89E1E6",
@@ -34,18 +34,18 @@ function setup() {
     opacity: 1
   }, 1000);
   $(".circle").eq(0).css({
-    left: $(".next").eq(0).offset().left - 30,
+    left: $(".next").eq(0).offset().left - 20,
     background: colors[1]
   });
   $(".next").each((index, link) => {
     $(link).hover(() => {
       $(".circle").eq(index).animate({
-        width: $(link).width() + 40
-      }, 300);
+        width: $(link).width() + 35
+      }, 200);
     }, () => {
       $(".circle").eq(index).animate({
-        width: 16
-      }, 300);
+        width: 30
+      }, 200);
     });
     $(link).click(() => {
       let page = $(".main");
@@ -58,7 +58,7 @@ function setup() {
       page.eq(index + 1).removeClass("d-none");
       window.scrollTo(0, 0);
       $(".circle").eq(index + 1).css({
-        left: $(".next").eq(index + 1).offset().left - 30,
+        left: $(".next").eq(index + 1).offset().left - 20,
         background: colors[index + 2] || colors[0]
       });
       page.eq(index + 1).animate({
@@ -76,7 +76,7 @@ function setup() {
       page.eq(index).removeClass("d-none");
       window.scrollTo(0, 0);
       $(".circle").eq(index).css({
-        left: $(".next").eq(index).offset().left - 30,
+        left: $(".next").eq(index).offset().left - 20,
         background: colors[index + 1]
       });
       page.eq(index).animate({
